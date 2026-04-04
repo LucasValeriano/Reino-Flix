@@ -335,113 +335,226 @@ document.onselectstart = function() { return false; };
 </script>
 <!-- ===== FIM POPUP PIX ===== -->
 <style id="antigravity-mobile-fixes">
-/* ===== REINOPLAY RESPONSIVE OPTIMIZATION (Mobile-First 320px+) ===== */
+/* ===================================================
+   REINOPLAY - MOBILE-FIRST NUCLEAR FIX
+   Prioridade máxima: corrige overflow, imagens e vídeos
+   =================================================== */
+
+/* GLOBAL: Bloqueia scroll horizontal em TODOS os dispositivos */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+}
+
+/* GLOBAL: Garante que imagens NUNCA ultrapassem o container */
+img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* FIX CRÍTICO: A imagem específica com width:1000px hardcoded */
+/* Usamos 4 níveis de especificidade para vencer o CSS inline do Atomicat */
+html body .a-b-cont .a-c-cont .a-img-ele-5af9429 img {
+    width: 80% !important;
+    max-width: 80% !important;
+}
+
+/* GLOBAL: Todos os players de vídeo responsivos */
+video, .video-js, .vjs-tech {
+    max-width: 100% !important;
+}
+
+/* ======================
+   MOBILE: 768px e abaixo
+   ====================== */
 @media (max-width: 768px) {
-    /* Reset Global Context */
-    body, html { overflow-x: hidden !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
-    
-    /* Global Flex Stacking for atomicat containers */
-    .a-cont { flex-direction: column !important; flex-wrap: nowrap !important; width: 100% !important; align-items: center !important; }
-    .a-o-cont { width: 100% !important; padding-left: 5px !important; padding-right: 5px !important; }
-    .a-b-o-cont { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
-    
-    /* Fix Specific Bonus Section Stacking (0265b19) */
-    .atomicat-container-0265b19 .a-cont {
-        display: flex !important;
+
+    /* --- Reset Base --- */
+    *, *::before, *::after { box-sizing: border-box !important; }
+
+    /* --- Containers Atomicat --- */
+    .a-cont {
         flex-direction: column !important;
-        gap: 40px !important;
-    }
-    
-    /* Ensure cards take full width */
-    .atomicat-container-8f41834, 
-    .atomicat-container-bcb8e3c, 
-    .atomicat-container-bbaa9ad,
-    [class*="atomicat-container-"] {
+        flex-wrap: nowrap !important;
         width: 100% !important;
-        max-width: 95vw !important;
-        margin: 15px auto !important;
+        align-items: stretch !important;
+    }
+    .a-o-cont {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+    .a-b-o-cont {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* --- Seção de bônus: empilhamento correto --- */
+    .atomicat-container-0265b19 > .a-o-cont > .a-cont,
+    .atomicat-container-91b8061 > .a-o-cont > .a-cont {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    .atomicat-container-8f41834,
+    .atomicat-container-bcb8e3c,
+    .atomicat-container-bbaa9ad,
+    .atomicat-container-fcc7a32,
+    .atomicat-container-02551c9,
+    .atomicat-container-0b2daa4 {
+        width: calc(100% - 16px) !important;
+        max-width: calc(100% - 16px) !important;
+        margin: 10px 8px !important;
         flex: none !important;
     }
 
-    /* Fix Testimonials and Grid Sections */
-    [class*="atomicat-container-"] .a-cont > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        flex-basis: 100% !important;
+    /* --- FIX NUCLEAR: imagem 1000px --- */
+    html body .a-img-ele-5af9429 img,
+    .a-img-ele-5af9429 img {
+        width: 90% !important;
+        max-width: 90% !important;
+        margin: 0 auto !important;
+        display: block !important;
     }
 
-    /* Fix the specific 1000px image width breaking layout */
-    .a-img-ele-5af9429 img, 
-    img[src*="bMYpFA7154953"],
+    /* --- Todas as imagens --- */
     .a-img-ele img {
         width: 100% !important;
+        max-width: 100% !important;
         height: auto !important;
+    }
+
+    /* --- Players de vídeo (videojs / BunnyCDN) --- */
+    .video-js, video, .vjs-tech {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9 !important;
+    }
+    [id^="ep-player-"] {
+        width: 100% !important;
         max-width: 100% !important;
     }
 
-    /* Typography Adjustments for Smaller Screens (320px focus) */
-    h1, h2, h3, .atomi-h1, .atomi-h2, .atomi-h3 {
-        font-size: 22px !important;
-        line-height: 1.2 !important;
-        text-align: center !important;
-        word-break: normal !important;
+    /* --- Player VSL ConverteAI --- */
+    #vid_67104e8d89e5ca000b21a88b {
+        width: 100% !important;
+        padding-top: 56.25% !important;
+        position: relative !important;
     }
     
-    .a-e-cont.atomicat-heading-title-1449e29 p { 
-        font-size: 24px !important; 
+    /* --- Garantir que iframes dentro do VSL fiquem dentro --- */
+    iframe {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* --- Slider de episódios --- */
+    .swiper-slide, .a-sld-item {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* --- Testemunhos (grid de 3 colunas -> coluna única) --- */
+    .atomicat-container-8be9ded > .a-o-cont > .a-cont {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    .a-c-cont-1a3641d,
+    .a-c-cont-4941909,
+    .a-c-cont-b62ae78 {
+        width: 100% !important;
+    }
+
+    /* --- Tipografia --- */
+    h1, h2, h3 {
+        font-size: 22px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+    }
+    p, span, li { font-size: 15px !important; line-height: 1.4 !important; }
+
+    /* --- Seção hero --- */
+    .a-e-cont.atomicat-heading-title-1449e29 p {
+        font-size: 26px !important;
         line-height: 1.1 !important;
     }
+    .a-c-cont-1449e29 > .a-e-cont { margin-top: 15px !important; }
 
-    /* Fix Video Players */
-    #vid_67104e8d89e5ca000b21a88b, 
-    .video-js, 
-    iframe {
-        width: 100% !important;
-        max-width: 100vw !important;
-        height: auto !important;
-        aspect-ratio: 16/9 !important;
+    /* --- Botões --- */
+    .a-btn {
+        width: 92% !important;
+        max-width: 92% !important;
+        font-size: 16px !important;
     }
 
-    /* Navigation/Marquee Fix */
-    .atomicat-marquee { width: 100% !important; }
+    /* --- Marquee --- */
+    .atomicat-marquee { width: 100% !important; overflow: hidden !important; }
     .atomicat-marquee-content p { font-size: 11px !important; }
+
+    /* --- SLIDER DE EPISÓDIOS: FIX OVERFLOW CRÍTICO ---
+       O swiper mostra os 6 slides lado a lado. Precisamos
+       garantir que o wrapper não ultrapasse a tela. */
+    .a-sld-cont,
+    .a-sld-ele,
+    [class*="swiper-"] {
+        overflow: hidden !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    .a-sld-item,
+    [class*="swiper-slide"] {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        flex-shrink: 0 !important;
+    }
+    /* Garante que os wrappers dos players ficam dentro da tela */
+    [id^="ep-player-"][id$="-wrapper"] {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .video-js.vjs-16-9 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }
 
-/* Force elements visible that might be delayed by third party scripts */
-.atomicat-delay, .a-hidden, [style*="display: none"] {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
 </style>
 <script>
-/* REINOPLAY BOOSTER SCRIPT */
-(function() {
-    function fixLayout() {
-        // Remover delays e classes que escondem elementos
-        document.querySelectorAll('.atomicat-delay, .a-hidden, .atomicat-delay-show').forEach(el => {
-            el.classList.remove('atomicat-delay', 'a-hidden', 'atomicat-delay-show');
-            el.style.display = 'block';
+/* REINOPLAY BOOSTER - Visibilidade e responsividade */
+(function () {
+    var fixed = false;
+    function boostVisibility() {
+        document.querySelectorAll('.atomicat-delay, .a-hidden').forEach(function (el) {
+            el.classList.remove('atomicat-delay', 'a-hidden');
+            el.style.removeProperty('display');
             el.style.visibility = 'visible';
             el.style.opacity = '1';
         });
-
-        // Forçar inicialização dos players ConverteAI
-        if (window.converteai && typeof window.converteai.init === 'function') {
-            window.converteai.init();
-        }
-        
-        // Corrigir players de video que podem resetar largura
-        document.querySelectorAll('video, iframe, .video-js').forEach(v => {
-            v.style.width = '100%';
+        // Garante que videos não sobresaiam
+        document.querySelectorAll('video, .video-js, iframe').forEach(function (v) {
             v.style.maxWidth = '100%';
+            if (!v.style.width || v.style.width === '') {
+                v.style.width = '100%';
+            }
         });
+        // Corrige a imagem com 1000px hardcoded
+        var img5af = document.querySelector('.a-img-ele-5af9429 img');
+        if (img5af) {
+            img5af.style.setProperty('width', '90%', 'important');
+            img5af.style.setProperty('max-width', '90%', 'important');
+            img5af.style.setProperty('height', 'auto', 'important');
+        }
+        fixed = true;
     }
-
-    // Executar múltiplas vezes para cobrir carregamentos assíncronos
-    fixLayout();
-    window.addEventListener('load', fixLayout);
-    setInterval(fixLayout, 2000); // Manter layout estável contra scripts externos
+    boostVisibility();
+    document.addEventListener('DOMContentLoaded', boostVisibility);
+    window.addEventListener('load', boostVisibility);
+    setTimeout(boostVisibility, 800);
+    setTimeout(boostVisibility, 2000);
 })();
 </script>
 </body></html>
